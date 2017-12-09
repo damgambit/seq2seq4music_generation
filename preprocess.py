@@ -90,7 +90,7 @@ print()
 
 
 # Run training
-model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracj'])
+model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
 print('[*] Starting Training')
 model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
@@ -204,7 +204,7 @@ encoder_input_data = []
 if np.array(song).shape[0] > 50:   
     length = np.array(song).shape[0]
     for j in range(length // seq_length):
-        encoder_input_data.append(song[seq_length*j:seq_length*(j+1)])
+        encoder_input_data.append(song[seq_length*y:seq_length*(y+1)])
 encoder_input_data = get_embeded_songs(encoder_input_data, tokens, num_encoder_tokens)                                                       
 
 
