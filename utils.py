@@ -87,11 +87,11 @@ def get_input_data(input_songs, target_songs, max_encoder_seq_length, num_encode
 	    encoder_input_data[i, -1, -1] = 1
 
 	    # decoder_target_data is ahead of decoder_input_data by one timestep
-	    for t, data in enumerate(decoder_input_data):
-	    	decoder_input_data[i, t] = data[t]
+	    for t, data in enumerate(target_song):
+	    	decoder_target_data[i, t] = data
 
 	    	if t > 0:
-	    		decoder_target_data[i, t-1] = 1
+	    		decoder_input_data[i, t-1] = data
 
 	    decoder_input_data[i, 0, 0] = 1
 	    decoder_target_data[i, -1, -1] = 1
