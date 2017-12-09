@@ -1,7 +1,6 @@
 import warnings
 import tensorflow as tf
 import glob
-import msgpack
 from tqdm import tqdm
 import midi_manipulation
 import numpy as np
@@ -25,25 +24,27 @@ def tf_checks():
 	print('\n\n')
 
 
-def get_song_matrixes(path, num_songs):
-	# Songs matrix configurations
-	files=glob.glob('{}/*.*mid*'.format(path))
-	input_songs=[]
-	target_songs=[]
+def get_song_matrixes(path, num_songs, seq_length):
+    # Songs matrix configurations
+    files=glob.glob('{}/*.*mid*'.format(path))
+    input_songs=[]
+    target_songs=[]
 
-	# Converting songs from midi to matrix
-	print('[*] Converting songs to matrix')
-	for i, f in enumerate(tqdm(files)):
-	    song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
-	    if np.array(song).shape[0] > 50:    
-	        input_songs.append(song)
-	        target_songs.append(song)
-	    if i == num_songs:
-	        break
-	print('[*] Converted {} songs to matrix'.format(i))
-	print('\n\n')
-	
-	return (input_songs, target_songs)
+    # Converting songs from midi to matrix
+    print('[*] Converting songs to matrix')
+    for i, f in enumerate(tqdm(files)):
+        song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
+        if np.array(song).shape[0] > 50:   
+            length = np.array(song).shape[0]
+            for j in range(length // seq_length):
+                input_songs.append(song[seq_length*i:seq_length*(i+1)])
+                target_songs.append(song[seq_length*i:seq_length*(i+1)])
+        if i == num_songs:
+            break
+    print('[*] Converted {} songs to matrix'.format(i))
+    print('\n\n')
+    
+    return (input_songs, target_songs)
 
 
 def get_data_insights(input_songs, target_songs):
