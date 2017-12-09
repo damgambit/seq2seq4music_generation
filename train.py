@@ -15,7 +15,7 @@ tf_checks()
 
 
 # Get Input Song Matrixes and Target Song Matrixes
-input_songs, target_songs = get_song_matrixes('./blues', 160)
+input_songs, target_songs = get_song_matrixes('./blues', 176)
 
 
 # Finding the longest song in the dataset
@@ -24,8 +24,6 @@ max_encoder_seq_length, num_encoder_tokens, \
     max_decoder_seq_length, num_decoder_tokens = get_data_insights(input_songs, target_songs)
 
 
-
-print('Songs shape: ', songs_concatenated.shape)
 print('Number of samples:', len(input_songs))
 print('Number of unique input tokens:', num_encoder_tokens)
 print('Number of unique output tokens:', num_decoder_tokens)
@@ -34,9 +32,9 @@ print('Max sequence length for outputs:', max_decoder_seq_length)
 
 
 # Get input data in shape (num_sample, max_seq_length, num_tokens)
-encoder_input_data, decoder_input_data, decoder_target_data = get_placeholders(
+encoder_input_data, decoder_input_data, decoder_target_data = get_input_data(
                                                                         input_songs, 
-                                                                        target_songs
+                                                                        target_songs,
                                                                         max_encoder_seq_length, 
                                                                         num_encoder_tokens, 
                                                                         max_decoder_seq_length, 

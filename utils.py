@@ -1,5 +1,9 @@
 import warnings
 import tensorflow as tf
+import glob
+import msgpack
+from tqdm import tqdm
+import midi_manipulation
 import numpy as np
 from tensorflow.python.ops import control_flow_ops
 from distutils.version import LooseVersion
@@ -36,6 +40,9 @@ def get_song_matrixes(path, num_songs):
 	        target_songs.append(song)
 	    if i == num_songs:
 	        break
+	print('[*] Converted {} songs to matrix'.format(i))
+	print('\n\n')
+	
 	return (input_songs, target_songs)
 
 
@@ -46,9 +53,6 @@ def get_data_insights(input_songs, target_songs):
 	num_encoder_tokens = max([song.shape[1] for song in input_songs])
 	max_decoder_seq_length = max([len(song) for song in target_songs])
 	num_decoder_tokens = max([song.shape[1] for song in target_songs])
-
-	print('[*] Converted {} songs to matrix'.format(i))
-	print('\n\n')
 
 	return (max_encoder_seq_length,num_encoder_tokens,max_decoder_seq_length,num_decoder_tokens)
 
