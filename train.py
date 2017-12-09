@@ -15,7 +15,7 @@ tf_checks()
 
 
 # Get Input Song Matrixes and Target Song Matrixes
-input_songs, target_songs = get_song_matrixes('./blues', 176)
+input_songs, target_songs = get_song_matrixes('./blues', 10, 300)
 
 
 # Finding the longest song in the dataset

@@ -87,13 +87,16 @@ def get_input_data(input_songs, target_songs, max_encoder_seq_length, num_encode
 	    encoder_input_data[i, -1, -1] = 1
 
 	    # decoder_target_data is ahead of decoder_input_data by one timestep
-	    decoder_input_data[i] = np.concatenate((target_song, 
-	            np.zeros((max_decoder_seq_length-target_song.shape[0], num_decoder_tokens))))
-	    decoder_input_data[i, 0, 0] = 1
+	    for t, data in enumerate(decoder_input_data):
+	    	decoder_input_data[i, t] = data[t]
 
-	    decoder_target_data[i] = np.concatenate((target_song, 
-	            np.zeros((max_decoder_seq_length-target_song.shape[0], num_decoder_tokens))))
+	    	if t > 0:
+	    		decoder_target_data[i, t-1] = 1
+
+	    decoder_input_data[i, 0, 0] = 1
 	    decoder_target_data[i, -1, -1] = 1
+
+	    
 
 	print()
 	print('Encoder input data shape:',encoder_input_data.shape)
