@@ -83,7 +83,8 @@ def get_tokens(input_songs):
 
 
 	for i, song in enumerate(input_songs):
-		print('Processing song,',i)
+		if(i%50==0):
+			print('Processing song: {}/{}'.format(i,np.array(input_songs).shape[0]))
 		embed_song = []
 		for i, state in enumerate(song):
 			if not any((tokens[:]==state).all(1)):
@@ -94,7 +95,8 @@ def get_tokens(input_songs):
 def get_embeded_songs(input_songs, tokens, num_encoder_tokens):
 	embeded_songs = []
 	for i, song in enumerate(input_songs):
-		print('Embedding song', i)
+		if(i%50==0):
+			print('Processing embed: {}/{}'.format(i,np.array(input_songs).shape[0]))
 		embed_song = []
 		for i, state in enumerate(song):
 			idx = state_to_token(state, tokens)
