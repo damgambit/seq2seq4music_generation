@@ -1,6 +1,0 @@
-build
-*.pyc
-.coverage
-.*.sw?
-dist
-midi.egg-info
