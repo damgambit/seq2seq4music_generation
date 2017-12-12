@@ -1,4 +1,5 @@
 # seq2seq4music_generation
+In development...
 
 ## Videos
 ### Music+AI - Blues Music played By an Artificial Intelligence - #1 Generation 
