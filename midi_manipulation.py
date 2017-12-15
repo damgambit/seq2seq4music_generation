@@ -7,7 +7,9 @@ upperBound = 102
 span = upperBound-lowerBound
 
 
-def midiToNoteStateMatrix(midifile, squash=True, span=span):
+def midiToNoteStateMatrix(midifile, squash=True, span=span, verbosity=0):
+    if verbosity == 1:
+        print('[*] Converting midifile:',midifile)
     pattern = midi.read_midifile(midifile)
 
     timeleft = [track[0].tick for track in pattern]
